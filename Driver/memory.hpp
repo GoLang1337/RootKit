@@ -110,7 +110,6 @@ NTSTATUS FreeVirtualMemory(pfree_memory req)
 {
 	NTSTATUS Status = { };
 	PEPROCESS TargetProcess = { };
-	KAPC_STATE ApcState = { };
 
 	Status = PsLookupProcessByProcessId((HANDLE)req->pid, &TargetProcess);
 
