@@ -120,8 +120,6 @@ NTSTATUS FreeVirtualMemory(pfree_memory req)
 		return Status;
 	}
 
-	KeStackAttachProcess(TargetProcess, &ApcState);
-
 	PVOID BaseAddress = (PVOID)req->address;
 	SIZE_T RegionSize = 0;
 
@@ -133,7 +131,6 @@ NTSTATUS FreeVirtualMemory(pfree_memory req)
 		return Status;
 	}
 
-	KeUnstackDetachProcess(&ApcState);
 	ObfDereferenceObject(TargetProcess);
 
 	return Status;
