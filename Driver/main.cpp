@@ -130,7 +130,7 @@ VOID Unload(PDRIVER_OBJECT DriverObject)
 	DbgPrint("[ RootKit ] Driver unloaded\n");
 }
 
-NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath)
+NTSTATUS DriverInitialize(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath)
 {
 	UNREFERENCED_PARAMETER(RegistryPath);
 
@@ -169,4 +169,12 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath)
 	DeviceObject->Flags &= ~DO_DEVICE_INITIALIZING;
 
 	return Status;
+}
+
+NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath)
+{
+    UNREFERENCED_PARAMETER(DriverObject);
+    UNREFERENCED_PARAMETER(RegistryPath);
+
+    return IoCreateDriver(NULL, &DriverInitialize);
 }
